@@ -11,20 +11,33 @@ and only do the correction by replacing incorrect word with highest probabality 
 
 
 I have attached the Uncleaned conversation text file for reference, where i have extracted uninterupted conversation between actors in seperate list and assigned key to each forming a dictionary, and created context (where the person is initiating conversation) and target list(where the person is replying to the context given). in loop for both target and context I call 'clean_text' function to lowercse , removing any punctuation and complete the auxiliary verbs.
-I create a vocab dictionary with word count and word including both target and context. also create another dictionery totalvocab(context to ID mapping) where I donot add from vocab those words which are not in corpus keep the threshold 1 to not loose much data and manaully add '<UNK>' to the dictionery 
+I create a vocab dictionary with word count and word including both target and context. also create another dictionery (for context to ID mapping) where I donot add from vocab those words which are not in corpus keep the threshold 1 to not loose much data and manaully add '<UNK>' to the dictionery. 
  
  
-'generatebatch' Function is used to yield 3 array input  which  both padded and replacing each 
   
   
   
   ---------**********----------
- system limitation challenge:-
-For the above general idea was to keep some threshold on all vocab before adding to totalvocab(it is context to ID mapping dictionery) in order to replace less used and incorrect words. So during prediction those words will be replaced with <UNK> however,
+ 
+ 
+System limitation challenge:-
+For the above general idea was to keep some threshold on all vocab before adding to dictionery(it is context to ID mapping dictionery) in order to replace less used and incorrect words. So during prediction those words will be replaced with <UNK> however,
 Major challenges faced during training model accuracy improvement was in small amount at each epoch, difference was small amount hence required 150+ epochs with larger dataset, there is constant challenge of colab crashing seen at times lead to removing of <UNK> from context to ID dictionery and using very small dataset with 105 epochs giving 97 accuracy to model. 
   
  -------*********--------
- Hence again wth litte cleaner dataset 
+ 
+ 
+For the reference my training model and inference model with results is in 'Chat_Conversation_Usecase1.ipynb' file with accuracy 97% for 27000 dataset.
+I have created dataframe with processed movie dataset, involving few of our preprocessing step including adding 'START_ ' in prefix and 'END_' in suffix of every sentence in target column for inference
+ 
+create total vocabulary under set and created input_token_index that is context to index for those vocabulary under a dictionery but we start index 1 as  we are saving 0 for padding which will be ignore during training process, creating reverse dictionery from index to word reverse_input_char_index.
+ 
+'generatebatch' function is created which takes X, y, batchsize and yield 3 array with batch size at a time. In this function padding and context to ID mapping is done for each word.
+ 
+ 
+ 
+ 
+ 
 
 
 
@@ -35,7 +48,5 @@ Major challenges faced during training model accuracy improvement was in small a
 
 
 
-There 
 
-With the clean Movie Dataset
 
