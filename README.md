@@ -76,4 +76,6 @@ Trained layers of encoder and decoder is used creating a seperate encoder model 
 I have taken decoder input data such that it begins with a special symbol 'Start_ '. 
 Decoder's output at time step t will be used decoder's input at time step t+1, when it generates "_END" symbol  as output, or when it exceeds the number of maximum outputs defined the predicted will be completed.
 However, The new model will not use Teacher Learning as we are giving predicted output to decoder.
+ 
+Accuracy achieved 97% with 105 epochs, alltogether the model has achieved good amount of improvement with less dataset giving a higher chance for better Human interaction if larger dataset is provided.
 
