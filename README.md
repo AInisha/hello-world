@@ -77,3 +77,4 @@ I have taken decoder input data such that it begins with a special symbol 'Start
 Decoder's output at time step t will be used decoder's input at time step t+1, when it generates "_END" symbol  as output, or when it exceeds the number of maximum outputs defined the predicted will be completed.
 However, The new model will not use Teacher Learning as we are giving predicted output to decoder.
 
+Overall, Accuracy achieved 97% with 105 epochs, the model was able to achieve good amount of improvement with less dataset giving a higher chance for better Human interaction with larger dataset. 
