@@ -1,2 +1,2 @@
 # hello-world
-Sequence to Sequence Model
+Sequenc to Sequence Model
