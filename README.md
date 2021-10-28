@@ -78,3 +78,4 @@ Decoder's output at time step t will be used decoder's input at time step t+1, w
 However, The new model will not use Teacher Learning as we are giving predicted output to decoder.
 
 Overall, Accuracy achieved 97% with 105 epochs, the model was able to achieve good amount of improvement with less dataset giving a higher chance for better Human interaction with larger dataset. 
+For the larger sequences prediction, I am currently training  Bahdanau attention model with teacher forcing will keep the github updated once the model is successfully trained. Thank you for your time.
