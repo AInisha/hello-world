@@ -37,7 +37,7 @@ For the reference my training model and inference model is in 'Chat_Conversation
 
 I have created dataframe with processed movie dataset, involving few more preprocessing step with adding 'START_ ' in prefix and ' _END' in suffix in each sentence for target column useful for Inference model.
  
-I created a set of total vocabulary taken from both target, context, with that created input_token_index to map word to index saved as a dictionery but we start with an index 1 we are saving 0 value for padding which will be ignore during training process, creating reverse dictionery to map index to word under reverse_input_char_index.
+I created a set of total vocabulary taken from both target, context, with that created input_token_index to map word to index saved as a dictionery but we start with an index 1 we are saving 0 value for padding which will be ignore during training process, creating reverse dictionery to map index to word under reverse_input_char_index.File with.py has to created for both dictionery for prediction purpose those .py is specific to features weights and layer weights.
  
  
  'generatebatch' function is created which takes X, y, batchsize as an input and yield 3 array(encoder_input_data, decoder_input_data, decoder_target_data) of provided batch size at a time. In this function padding and context to ID mapping is done for each word:-
