@@ -1,4 +1,6 @@
 #Summary
+
+
 #Sequence to Sequence Model(Encoder Decoder Approach to achieve the puurpose of Human interactive BOT)
 
 Preprocessing (in seperate file)
@@ -50,46 +52,28 @@ The initial input is a special symbol for decoder to make it start, e.g. 'START_
 Using initial context and initial input, decoder will generate first output
 For the next output, decoder will use its current state as context vector and generated (predicted) output as input, but Model (as the teacher!) provide the correct output to the decoder as input.
 Hence decoder use the context vector and the correct input to next output rather than using its prediction in previous cycle.
-During training:
-
-At the first cycle, decoder will use encoder's state and its first input which is 0 from decoder input sequence [0 8 2 7] to generate the first output which is expected to be 8 from [8 2 7 4]
-Assume that decoder predicts 7
-In generic Encoder-Decoder model, decoder will use 7 to generate/predict next token
-In teacher forcing, we (the teacher!) provide the second input from [0 8 2 7] which is 8 to the decoder to generate/predict next token
-Thus, during training, teacher enforces the decoder to condition itself to generate/predict next token according to the given correct input!
- 
- 
- 
- embedding
- 
- we need to inform the model that some part of the data is actually padding and should be ignored during processing
- 
- 
- 
-In testing
-encoder will consume all the sequence and the paddings
-decoder will stop predicting
-when it generates "_END" symbol  as output, or when it exceeds the number of maximum outputs defined.
- 
- 
- 
- 
 
 
+
+ Layers:-
+ 
+Input for both encoder decoder is 2 dimesional shape, whereas the output vector is 3 dimensional where each timestep represent num_enocder_token features(vocabulary)
+Embedding layer in both decoder and encoder is used for 300 latent dimension giving weights to features also mask_zero is kept True to ignore padding considering some words are missing or not avalaible and should be ignored.
+ 
+
+For encoder 2 Bidrectional layer is used with 300 output dimension, the second bidirectional lstm is initialized with states of first bilstm layer. (Note in case of bahadanu attention mechanism, where longer sequence prediction is needed we use hidden states of all encoder for creating context vector hence use return_sequence= True in order to return hidden state for each time step during encoding.)
+States of last bidrectional will be used discarding encoder output hence forward and backward states are added to create hidden and cell state.
+ 
+The hidden and cell state of encoder will be used as an initial state for decoder, we use only 1 lstm layer and the latent dims remains same where we return output at every timestep store in decoder output. During unrolling, Timedistributed layer apply same dense layer to every timesteps(Using return_sequences=False, the Dense layer will get applied only once in the last cell). This way we achieve 3 dimensional output.
+ 
 
  
  
  
- 
- 
- 
- 
-
-
-
-
-
-
-
-
+Inference Model:-
+The trained model cannot be used directly for prediction, reason is correct output should be known beforehand. Therefore, I have provide the predicted output as the input.
+Trained layers of encoder and decoder is used creating a seperate encoder model and decoder model. 
+I have taken decoder input data such that it begins with a special symbol 'Start_ '. 
+Decoder's output at time step t will be used decoder's input at time step t+1, when it generates "_END" symbol  as output, or when it exceeds the number of maximum outputs defined the predicted will be completed.
+However, The new model will not use Teacher Learning as we are giving predicted output to decoder.
 
