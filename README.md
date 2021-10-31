@@ -23,8 +23,8 @@ I create a vocab dictionary with word count and word including both target and c
  
  
 System limitation challenge:-
-For the above general idea was to keep some threshold on all vocab before adding to dictionery(it is word to ID mapping dictionery) in order to replace less used and incorrect words. So during prediction those words will be replaced with <UNK> however,
-Major challenges faced during training model accuracy improvement was in small amount at each epoch, difference was small amount hence required 150+ epochs with larger dataset, there is constant challenge of colab crashing seen at times lead to removing of <UNK> from context to ID dictionery and using very small dataset with 105 epochs giving 97 accuracy to model. 
+For the above general idea was to keep some threshold on all vocab before adding to dictionery(it is word to ID mapping dictionery) in order to replace less used and incorrect words. So during prediction those words will be replaced with UNK. However,
+Major challenges faced during training model was accuracy improvement was in small amount at each epoch, difference was very small due to which it required 150+ epochs with larger dataset, as we require accurate prediction during evluation so trained weights must have otimal value. Also there is constant challenge of colab crashing seen at times lead to removing of UNK from context to ID dictionery and so I have started with a very small dataset with 105 epochs and model was able to achieve 97% accuracy. 
  
  
   
@@ -77,5 +77,5 @@ I have taken decoder input data such that it begins with a special symbol 'Start
 Decoder's output at time step t will be used decoder's input at time step t+1, when it generates "_END" symbol  as output, or when it exceeds the number of maximum outputs defined the predicted will be completed.
 However, The new model will not use Teacher Learning as we are giving predicted output to decoder.
 
-Overall, Accuracy achieved 97% with 105 epochs, the model was able to achieve good amount of improvement with less dataset giving a higher chance for better Human interaction with larger dataset. 
+Overall, Accuracy was achieved 97% with 105 epochs, the model did well with less dataset and was able to train itself with context based vocabs, so there is a high chance for better Human interaction with larger dataset maintaining good number of epochs for a model to learn. 
 For the larger sequences prediction, I am currently training  Bahdanau attention model with teacher forcing will keep the github updated once the model is successfully trained. Thank you for your time.
